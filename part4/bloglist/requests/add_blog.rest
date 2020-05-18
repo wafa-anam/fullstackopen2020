@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndfYW5hbSIsImlkIjoiNWVjMWNiNDJlMzZhODEwZWU0MDIwZjgwIiwiaWF0IjoxNTg5NzYwMDExfQ.GduIhTpqUcJCN73l5LlJGfzkP_1E1df6yqCD3E11_PQ
+
+{
+  "title": "Next Blog Entry",
+  "author": "Andrew",
+  "url": "https://fullstackopen.com/en/part4/token_authentication",
+  "likes": 0
+}

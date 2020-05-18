@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/5ebc4b830972e76440b7f6ce
+Content-Type: application/json
+
+{
+  "title": "First Blog Entry",
+  "author": "Wafa",
+  "url": "non-existent",
+  "likes": 18
+}
