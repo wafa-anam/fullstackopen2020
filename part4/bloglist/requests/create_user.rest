@@ -1,6 +1,12 @@
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
+# {
+#   "name": "Admin",
+#   "username": "admin",
+#   "password": "pass"
+# }
+
 {
   "name": "Wafa Anam",
   "username": "w_anam",

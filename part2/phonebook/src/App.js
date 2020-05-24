@@ -37,38 +37,45 @@ const App = () => {
           setNotification(`Added ${newName}`)
           setPersons(persons.concat(response))
         })
+        .catch(error => {
+          console.log(error.response.data)
+          setError(error.response.data.error)
+        })
     }
     else {
       if (window.confirm(`${newName} is already in the phonebook, replace the old number with a new one?`))
         contactService.update(existing.id, newPerson)
-        .then(response => {
-          setNotification(`Updated ${newName}'s number to ${newNumber}`)
-          setPersons(persons.map(person => person.id !== existing.id ? person : response))
-        })
-        .catch(error => {
-          setError(`${newName} was already removed from the server!`)
-        })
+          .then(response => {
+            setNotification(`Updated ${newName}'s number to ${newNumber}`)
+            setPersons(persons.map(person => person.id !== existing.id ? person : response))
+          })
+          .catch(error => {
+            setError(error.response.data.error)
+            if (error.response.status === 404){
+              setPersons(persons.filter(person => person.id !== existing.id))
+            }
+          })
     }
-    setTimeout(() => {setNotification(null)}, 5000)
-    setTimeout(() => {setError(null)}, 5000)
+    setTimeout(() => { setNotification(null) }, 5000)
+    setTimeout(() => { setError(null) }, 5000)
     setNewName('')
     setNewNumber('')
   }
 
   const deletePerson = (person) => {
     const id = person.id
-    contactService.remove(id)
-      .then(response => {
-        if (window.confirm(`Delete ${person.name}?`))
+    if (window.confirm(`Delete ${person.name}?`))
+      contactService.remove(id)
+        .then(response => {
           setNotification(`Deleted ${person.name}`)
           setPersons(persons.filter(person => person.id !== id))
-      })
-      .catch(error => {
-        setError(`${person.name} was already removed from the server!`)
-        setPersons(persons.filter(person => person.id !== id))
-      })
-    setTimeout(() => {setNotification(null)}, 5000)
-    setTimeout(() => {setError(null)}, 5000)
+        })
+        .catch(error => {
+          setError(`${person.name} was already removed from the server!`)
+          setPersons(persons.filter(person => person.id !== id))
+        })
+    setTimeout(() => { setNotification(null) }, 5000)
+    setTimeout(() => { setError(null) }, 5000)
   }
 
   const handleNameChange = (event) => setNewName(event.target.value)
